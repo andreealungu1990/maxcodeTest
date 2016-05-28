@@ -1,4 +1,5 @@
 ﻿using Flurl.Http;
+using StackQuestionsWeb.App_Start;
 using StackQuestionsWeb.WebHelpers;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,8 @@ namespace StackQuestionsWeb
     {
         protected void Application_Start()
         {
+            AutofacConfig.Register();
             AreaRegistration.RegisterAllAreas();
-
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

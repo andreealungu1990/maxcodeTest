@@ -18,6 +18,7 @@ namespace StackQuestionsWeb.WebHelpers
             if (httpClientHandler == null)
                 return null;
 
+            httpClientHandler.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
             var httpClient = base.CreateClient(url, handler);
             httpClient.Timeout = TimeSpan.FromSeconds(10);
             return httpClient;
