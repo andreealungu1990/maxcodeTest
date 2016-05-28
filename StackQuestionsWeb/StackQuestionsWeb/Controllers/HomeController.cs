@@ -1,4 +1,6 @@
-﻿using StackQuestionsWeb.DataProviders;
+﻿using PagedList;
+using StackQuestionsWeb.DataProviders;
+using StackQuestionsWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +18,14 @@ namespace StackQuestionsWeb.Controllers
             this.questionsLoader = questionsLoader;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string text, string tag, int? pageNumber)
         {
+            var pageIndex = pageNumber ?? 1;
             var result = Task.Run(() => questionsLoader.GetQuestions()).Result;
-            return View();
+
+            var itemsPagedList = new StaticPagedList<Item>(result.Items, pageIndex, 20, result.Total / 20);
+
+            return View(itemsPagedList);
         }
 
     }
