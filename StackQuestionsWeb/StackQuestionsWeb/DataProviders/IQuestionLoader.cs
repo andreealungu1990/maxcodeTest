@@ -9,6 +9,6 @@ namespace StackQuestionsWeb.DataProviders
 {
     public interface IQuestionsLoader
     {
-        Task<RootObject> GetQuestions();
+        Task<RootObject> GetQuestions(string text, string tag, int pageNumber);
     }
 }

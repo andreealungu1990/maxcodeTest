@@ -17,16 +17,21 @@ namespace StackQuestionsWeb.DataProviders
             this.httpClient = httpClient;
         }
 
-        public async Task<RootObject> GetQuestions()
+        public async Task<RootObject> GetQuestions(string text, string tag, int pageNumber)
         {
+            var url = string.IsNullOrEmpty(text) && string.IsNullOrEmpty(tag) ? StackexchangeApi.DefaultUrl : StackexchangeApi.Url;
             var queryParams = new {
                 order = StackexchangeApi.Order, 
                 sort = StackexchangeApi.Sort,
+                tagged = tag,
+                intitle = text,
+                pagesize = StackexchangeApi.PageSize,
+                page = pageNumber,
                 site = StackexchangeApi.Site, 
                 filter = StackexchangeApi.Filter 
             };
 
-            return await httpClient.Get<RootObject>(StackexchangeApi.Url, queryParams);            
+            return await httpClient.Get<RootObject>(url, queryParams);            
         }
     }
 }

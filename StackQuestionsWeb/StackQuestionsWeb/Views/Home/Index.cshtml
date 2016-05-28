@@ -5,12 +5,13 @@
 @model StaticPagedList<StackQuestionsWeb.Models.Item>
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Questions";
 }
-
-<div class="col-md-12">
-    <div class="col-md-8 col-md-offset-2">
-        @using (Html.BeginForm(new {@class ="form-horizontal"}))
+<h1> Stackoverflow questions</h1>
+<div class="col-md-8 col-md-offset-2">
+    <div class="row">
+        <div class="col-md-12">
+        @using (Html.BeginForm("Index", "Home", FormMethod.Get, new {@class ="form-horizontal"}))
         {
             <div class="form-inline">
                 <div class="form-group">
@@ -21,33 +22,32 @@
             </div>    
         }
     </div>
+    </div>
+   
     
     @foreach (var item in Model)
     {       
-        <div class="row">            
-            <div class="col-md-8 col-md-offset-2">
+        <div class="row">   
                 <hr />
                 <div class="col-md-2">
-                    <div class="label label-info">Votes @Html.DisplayFor(modelItem => item.Score)</div>
+                    <div class="label label-success">Votes @Html.DisplayFor(modelItem => item.Score)</div>
                 </div>
-                <div class="col-md-10">
+                <div class="col-md-8">
                     <a href=@item.Link >@item.Title</a><br />
                     @foreach (var t in item.Tags)
                     {
                         <span class="label label-primary"> @Html.DisplayFor(modelItem => t)</span> 
                     }                     
                 </div>
+            <div class="col-md-2">
+                 <a class="btn btn-info center" href="mailto:?Subject=@item.Title&body=@Url.Encode(item.Link)">Send link</a>                      
             </div>
-        </div>       
+            </div>  
     }
+    <div class="col-md-8 center-block">
+        @Html.PagedListPager(Model, pageNumber => Url.Action("Index", new {  
+        pageNumber, text = Request.QueryString["text"], tag = Request.QueryString["tag"]}))</div>
+   
 </div>
 
-<br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
- 
 
-@Html.PagedListPager(Model, pageNumber => Url.Action("Index", new {  
-    pageNumber,
-text = Request.QueryString["text"],  
-tag = Request.QueryString["tag"]    
-}))

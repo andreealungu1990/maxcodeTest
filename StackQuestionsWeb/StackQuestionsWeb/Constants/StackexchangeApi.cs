@@ -7,11 +7,13 @@ namespace StackQuestionsWeb.Constants
 {
     public static class StackexchangeApi
     {
-        public const string Url = @"https://api.stackexchange.com/2.2/questions";
+        public const string Url = @"https://api.stackexchange.com/2.2/search";
+        public const string DefaultUrl = @"https://api.stackexchange.com/2.2/questions";
         public const string Order = "desc";
         public const string Sort = "votes";
         public const string Site = "stackoverflow";
         public const string Filter = "!FsaoAlyDgQYKf.29A3mLybMzWt";
+        public const int PageSize = 10;
 
     }
 }

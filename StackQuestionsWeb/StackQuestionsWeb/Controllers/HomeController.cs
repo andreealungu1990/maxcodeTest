@@ -1,4 +1,5 @@
 ﻿using PagedList;
+using StackQuestionsWeb.Constants;
 using StackQuestionsWeb.DataProviders;
 using StackQuestionsWeb.Models;
 using System;
@@ -21,9 +22,9 @@ namespace StackQuestionsWeb.Controllers
         public ActionResult Index(string text, string tag, int? pageNumber)
         {
             var pageIndex = pageNumber ?? 1;
-            var result = Task.Run(() => questionsLoader.GetQuestions()).Result;
+            var result = Task.Run(() => questionsLoader.GetQuestions(text, tag, pageIndex)).Result;
 
-            var itemsPagedList = new StaticPagedList<Item>(result.Items, pageIndex, 20, result.Total / 20);
+            var itemsPagedList = new StaticPagedList<Item>(result.Items, pageIndex, StackexchangeApi.PageSize, result.Total/StackexchangeApi.PageSize);
 
             return View(itemsPagedList);
         }
