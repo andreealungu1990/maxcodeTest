@@ -146,6 +146,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="AutofacModules\WebAutofacModule.cs" />
+    <Compile Include="Constants\StackexchangeApi.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DataProviders\IQuestionLoader.cs" />
     <Compile Include="DataProviders\QuestionLoader.cs" />

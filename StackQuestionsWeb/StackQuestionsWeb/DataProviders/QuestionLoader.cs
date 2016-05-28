@@ -1,8 +1,10 @@
-﻿using StackQuestionsWeb.Models;
+﻿using StackQuestionsWeb.Constants;
+using StackQuestionsWeb.Models;
 using StackQuestionsWeb.WebHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace StackQuestionsWeb.DataProviders
@@ -15,11 +17,16 @@ namespace StackQuestionsWeb.DataProviders
             this.httpClient = httpClient;
         }
 
-        public RootObject GetQuestions()
+        public async Task<RootObject> GetQuestions()
         {
-            var url = @"https://api.stackexchange.com/2.2/questions";
-            var queryParams = new { order = "desc", sort = "votes", site = "stackoverflow", filter = "!FsaoAlyDgQYKf.29A3mLybMzWt" };
-            return  httpClient.Get<RootObject>(url, queryParams).Result;            
+            var queryParams = new {
+                order = StackexchangeApi.Order, 
+                sort = StackexchangeApi.Sort,
+                site = StackexchangeApi.Site, 
+                filter = StackexchangeApi.Filter 
+            };
+
+            return await httpClient.Get<RootObject>(StackexchangeApi.Url, queryParams);            
         }
     }
 }
